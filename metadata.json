@@ -1,0 +1,5 @@
+{
+  "name": "DeepCheck",
+  "description": "A deepfake detection application interface featuring image upload, real-time scanning visualization, and detailed analysis results.",
+  "requestFramePermissions": []
+}

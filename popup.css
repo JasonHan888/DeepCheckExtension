@@ -1,0 +1,248 @@
+/* ============================================
+   DeepCheck Guardian - Compact Theme (White)
+   ============================================ */
+
+/* GLOBAL RESET & IMPORTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Theme Colors */
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #ecfdf5;
+    --success: #10b981;
+    --danger: #ef4444;
+
+    /* Grays & Backgrounds (Light Mode) */
+    --bg-main: #ffffff;
+    --bg-surface: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+
+    /* Branding Colors (Ice Blue) */
+    --ice-blue: #0288d1;
+    --ice-glow: #00bcd4;
+
+    /* Effects */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(16, 185, 129, 0.15);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    width: 280px;
+    height: 310px;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    overflow: hidden;
+    position: relative;
+    transition: background 0.4s ease;
+}
+
+/* MAIN CONTAINER */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 16px 16px;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+.header {
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--ice-blue) 0%, var(--ice-glow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+}
+
+.version {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ice-glow);
+    background: rgba(2, 136, 209, 0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   STATUS SECTION
+   ============================================ */
+.status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+#status-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.4s ease;
+}
+
+/* Base Ring (No Pulse) */
+.pulse-ring {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+.toggle-wrapper {
+    margin: 8px 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gray-200);
+    border-radius: 32px;
+    transition: 0.4s;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: 0.4s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:checked+.slider {
+    background: var(--primary);
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+}
+
+input:checked+.slider:before {
+    transform: translateX(22px);
+}
+
+/* ============================================
+   DISABLED MODE
+   ============================================ */
+body.disabled-mode {
+    background: var(--bg-main);
+}
+
+body.disabled-mode #status-text {
+    color: var(--danger);
+}
+
+body.disabled-mode .pulse-ring {
+    background: var(--danger);
+    box-shadow: none;
+}
+
+body.disabled-mode .pulse-ring::before {
+    display: none;
+}
+
+body.disabled-mode .slider {
+    background: #fecaca;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.footer p {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.stats {
+    font-size: 10px;
+    color: var(--primary);
+    font-weight: 700;
+}

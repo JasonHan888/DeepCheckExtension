@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#007AFF">
+    <meta name="description" content="Detect AI-generated images with advanced forensic analysis">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
+    <title>DeepCheck</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"
+        crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" crossorigin />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/tailwind.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d93f2",
+                        "primary-hover": "#0b84da",
+                        "background-light": "#ffffff",
+                        "background-dark": "#101b22",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2a33",
+                        "alert": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                        'spin-reverse-slow': 'spin-reverse 4s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s infinite',
+                    },
+                    keyframes: {
+                        'spin-reverse': {
+                            from: { transform: 'rotate(360deg)' },
+                            to: { transform: 'rotate(0deg)' },
+                        },
+                        'shimmer': {
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        html {
+            background-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #ffffff;
+            touch-action: manipulation;
+            height: 100svh;
+            width: 100%;
+            overflow-y: auto;
+            overscroll-behavior-y: none;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        #root {
+            height: 100svh;
+            width: 100%;
+        }
+
+        /* Disable transitions while this class is active */
+        .preload * {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -ms-transition: none !important;
+            -o-transition: none !important;
+            transition: none !important;
+        }
+
+        /* Hide scrollbar for clean app-like feel */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-900 antialiased selection:bg-primary selection:text-white preload">
+    <div id="root" class="h-full w-full"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+        window.addEventListener('load', function () {
+            // 100ms timeout ensures the render cycle is complete and prevents early transitions
+            setTimeout(function () {
+                document.body.classList.remove('preload');
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

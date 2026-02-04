@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepCheck Guardian</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>DeepCheck</h1>
+            <span class="version">v1.0</span>
+        </div>
+
+        <!-- Status Indicator -->
+        <div class="status-container">
+            <div class="pulse-ring" id="pulse"></div>
+            <p id="status-text">System Active</p>
+        </div>
+
+        <!-- The Toggle Switch -->
+        <div class="toggle-wrapper">
+            <label class="switch" aria-label="Toggle Protection">
+                <input type="checkbox" id="toggle-switch" checked aria-checked="true">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="footer">
+            <p>Guardian Protection</p>
+            <div class="stats">
+                <span><strong id="footer-status">ONLINE</strong></span>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
