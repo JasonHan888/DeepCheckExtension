@@ -4,13 +4,19 @@ const MASTER_WHITELIST = ["google.com", "huggingface.co", "facebook.com", "mayba
 
 // Global Protection State (Default to true)
 let isProtectionEnabled = true;
+let isBlockScreenEnabled = true;
 
 // 0. INITIALIZATION & STATE MANAGEMENT
 function updateState() {
-    chrome.storage.local.get("isDeepCheckEnabled", (result) => {
+    chrome.storage.local.get(["isDeepCheckEnabled", "isBlockScreenEnabled"], (result) => {
         // If undefined, default to true. Otherwise use the stored value.
         isProtectionEnabled = result.isDeepCheckEnabled !== false;
-        console.log("DeepCheck Policy Updated:", isProtectionEnabled ? "ENABLED" : "DISABLED");
+        isBlockScreenEnabled = result.isBlockScreenEnabled !== false;
+
+        console.log("DeepCheck Policy:", {
+            protection: isProtectionEnabled ? "ENABLED" : "DISABLED",
+            blockScreen: isBlockScreenEnabled ? "ENABLED" : "DISABLED"
+        });
 
         // Update badge to reflect state visually
         if (isProtectionEnabled) {
@@ -28,8 +34,23 @@ updateState();
 
 // Listen for changes from the popup
 chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.isDeepCheckEnabled) {
+    if (namespace === 'local' && (changes.isDeepCheckEnabled || changes.isBlockScreenEnabled)) {
         updateState();
+    }
+});
+
+// Listen for keyboard shortcuts
+chrome.commands.onCommand.addListener((command) => {
+    if (command === "toggle-protection") {
+        // Toggle the state
+        const newState = !isProtectionEnabled;
+        chrome.storage.local.set({ isDeepCheckEnabled: newState }, () => {
+            // Notification is handled here to ensure it only shows on explicit toggle
+            showSystemNotification(
+                newState ? "DeepCheck Enabled" : "DeepCheck Disabled",
+                newState ? "Protection is now ACTIVE." : "Protection is now PAUSED."
+            );
+        });
     }
 });
 
@@ -120,16 +141,24 @@ function blockNavigation(tabId, url, reason, type = "Malicious") {
     // Double check state before taking disruptive action
     if (!isProtectionEnabled) return;
 
-    const page = chrome.runtime.getURL(`blocked.html?url=${encodeURIComponent(url)}&reason=${encodeURIComponent(reason)}&type=${encodeURIComponent(type)}`);
+    // Check if user wants to see the block screen
+    if (isBlockScreenEnabled) {
+        const page = chrome.runtime.getURL(`blocked.html?url=${encodeURIComponent(url)}&reason=${encodeURIComponent(reason)}&type=${encodeURIComponent(type)}`);
 
-    // Close the malicious tab FIRST, then open blocked page in a NEW tab
-    // This ensures the new tab has NO history to go back to
-    chrome.tabs.remove(tabId).then(() => {
-        chrome.tabs.create({ url: page });
-    }).catch(() => {
-        // If remove fails, still try to create the blocked page
-        chrome.tabs.create({ url: page });
-    });
+        // Close the malicious tab FIRST, then open blocked page in a NEW tab
+        // This ensures the new tab has NO history to go back to
+        chrome.tabs.remove(tabId).then(() => {
+            chrome.tabs.create({ url: page });
+        }).catch(() => {
+            // If remove fails, still try to create the blocked page
+            chrome.tabs.create({ url: page });
+        });
+    } else {
+        // SILENT BLOCK MODE
+        // Just close the tab preventing access, but show a notification so they know why
+        chrome.tabs.remove(tabId).catch(() => { });
+        showSystemNotification("Malicious Site Blocked", `DeepCheck blocked a threat: ${reason}`);
+    }
 }
 
 function showSystemNotification(title, msg) {
