@@ -12,61 +12,29 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo-area">
-                <h1>DeepCheck</h1>
-            </div>
-            <button id="settings-btn" class="icon-btn" aria-label="Settings">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path
-                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                    </path>
-                </svg>
-            </button>
+            <h1>DeepCheck</h1>
+            <span class="version">v1.0</span>
         </div>
 
-        <!-- MAIN VIEW -->
-        <div id="main-view">
-            <!-- Central Toggle -->
-            <div class="toggle-container">
-                <label class="switch big-switch" aria-label="Toggle Protection">
-                    <input type="checkbox" id="toggle-switch" checked aria-checked="true">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-
-            <!-- Status Text Below -->
-            <div class="status-display">
-                <p id="status-text">Protection is <strong>ON</strong></p>
-            </div>
+        <!-- Status Indicator -->
+        <div class="status-container">
+            <div class="pulse-ring" id="pulse"></div>
+            <p id="status-text">System Active</p>
         </div>
 
-        <!-- SETTINGS VIEW (Hidden by default) -->
-        <div id="settings-view" class="hidden">
-            <div class="settings-header">
-                <button id="back-btn" class="icon-btn" aria-label="Back">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                </button>
-                <h2>Settings</h2>
-            </div>
+        <!-- The Toggle Switch -->
+        <div class="toggle-wrapper">
+            <label class="switch" aria-label="Toggle Protection">
+                <input type="checkbox" id="toggle-switch" checked aria-checked="true">
+                <span class="slider round"></span>
+            </label>
+        </div>
 
-            <div class="setting-item">
-                <label for="toggle-block-screen" class="setting-label">Show Block Screen</label>
-                <label class="switch small-switch">
-                    <input type="checkbox" id="toggle-block-screen" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <p class="setting-desc">Show a red warning screen when blocked. If off, just notify.</p>
-
-            <!-- Footer Info (Moved to Settings) -->
-            <div class="footer">
-                <p>DeepCheck v1.0 • <span id="footer-status">ONLINE</span></p>
+        <!-- Footer Info -->
+        <div class="footer">
+            <p>Guardian Protection</p>
+            <div class="stats">
+                <span><strong id="footer-status">ONLINE</strong></span>
             </div>
         </div>
     </div>

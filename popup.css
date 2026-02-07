@@ -1,5 +1,5 @@
 /* ============================================
-   DeepCheck Guardian - Premium Theme
+   DeepCheck Guardian - Compact Theme (White)
    ============================================ */
 
 /* GLOBAL RESET & IMPORTS */
@@ -9,95 +9,70 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
 }
 
 :root {
-    /* Premium Colors */
+    /* Theme Colors */
     --primary: #10b981;
-    --primary-glow: rgba(16, 185, 129, 0.4);
-    --ice-blue: #06b6d4;
-    /* Cyan-500 for Ice Blue */
+    --primary-dark: #059669;
+    --primary-light: #ecfdf5;
+    --success: #10b981;
     --danger: #ef4444;
-    --danger-glow: rgba(239, 68, 68, 0.4);
 
+    /* Grays & Backgrounds (Light Mode) */
     --bg-main: #ffffff;
+    --bg-surface: #f8fafc;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
-    --border: #f1f5f9;
+    --border-color: #e2e8f0;
+    
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
 
-    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* Branding Colors (Ice Blue) */
+    --ice-blue: #0288d1;
+    --ice-glow: #00bcd4;
+
+    /* Effects */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(16, 185, 129, 0.15);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 body {
-    width: 320px;
-    height: 380px;
-    font-family: 'Inter', sans-serif;
+    width: 280px;
+    height: 310px;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background: var(--bg-main);
     color: var(--text-primary);
     overflow: hidden;
+    position: relative;
+    transition: background 0.4s ease;
 }
 
-/* MAIN CONTAINER with padding */
+/* MAIN CONTAINER */
 .container {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 20px;
-}
-
-/* HEADER */
-.header {
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-area h1 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--ice-blue);
-    /* Updated Color */
-    letter-spacing: -0.5px;
-}
-
-.icon-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-}
-
-.icon-btn:hover {
-    background: #f8fafc;
-    color: var(--text-primary);
-    transform: rotate(15deg);
-}
-
-/* MAIN DASHBOARD */
-#main-view {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
+    padding: 16px 16px;
+    position: relative;
+    z-index: 1;
     animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(5px);
     }
 
     to {
@@ -106,25 +81,86 @@ body {
     }
 }
 
-/* BIG CENTRAL TOGGLE */
-.toggle-container {
-    margin-bottom: 24px;
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+.header {
+    text-align: center;
+    margin-bottom: 4px;
 }
 
-.big-switch {
-    width: 80px;
-    height: 44px;
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--ice-blue) 0%, var(--ice-glow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+}
+
+.version {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ice-glow);
+    background: rgba(2, 136, 209, 0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   STATUS SECTION
+   ============================================ */
+.status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+#status-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.4s ease;
+}
+
+/* Base Ring (No Pulse) */
+.pulse-ring {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+.toggle-wrapper {
+    margin: 8px 0;
+}
+
+.switch {
     position: relative;
     display: inline-block;
+    width: 44px;
+    height: 22px;
 }
 
-.big-switch input {
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-    position: absolute;
-    /* Find visual bug: ensure it doesn't take space */
-    z-index: -1;
 }
 
 .slider {
@@ -134,164 +170,79 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--danger);
-    /* Default to RED (OFF) */
-    border-radius: 34px;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
-    /* Smooth animation */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    /* Fix artifacts */
+    background: var(--gray-200);
+    border-radius: 32px;
+    transition: 0.4s;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 36px;
-    width: 36px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--white);
     border-radius: 50%;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 2;
+    transition: 0.4s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Active State (Green) */
-.big-switch input:checked+.slider {
-    background-color: var(--primary);
-    box-shadow: 0 0 15px var(--primary-glow);
+input:checked+.slider {
+    background: var(--primary);
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
 }
 
-.big-switch input:checked+.slider:before {
-    transform: translateX(36px);
+input:checked+.slider:before {
+    transform: translateX(22px);
 }
 
-/* STATUS DISPLAY */
-.status-display p {
-    font-size: 15px;
-    color: var(--text-secondary);
+/* ============================================
+   DISABLED MODE
+   ============================================ */
+body.disabled-mode {
+    background: var(--bg-main);
 }
 
-.status-display strong {
-    color: var(--primary);
-    font-weight: 700;
-}
-
-/* DISABLED MODE Styles */
-body.disabled-mode .big-switch input:checked+.slider {
-    background-color: var(--danger);
-    box-shadow: 0 0 20px var(--danger-glow);
-}
-
-body.disabled-mode .status-display strong,
-body.disabled-mode #footer-status {
+body.disabled-mode #status-text {
     color: var(--danger);
 }
 
-/* FOOTER */
+body.disabled-mode .pulse-ring {
+    background: var(--danger);
+    box-shadow: none;
+}
+
+body.disabled-mode .pulse-ring::before {
+    display: none;
+}
+
+body.disabled-mode .slider {
+    background: #fecaca;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
 .footer {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     text-align: center;
-    border-top: 1px solid var(--border);
-    padding-top: 16px;
-    margin-top: auto;
+    box-shadow: var(--shadow-sm);
 }
 
 .footer p {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-secondary);
-    font-weight: 500;
+    margin-bottom: 4px;
 }
 
-#footer-status {
-    font-weight: 700;
+.stats {
+    font-size: 10px;
     color: var(--primary);
-}
-
-/* SETTINGS VIEW (Same minimal style) */
-.hidden {
-    display: none !important;
-}
-
-#settings-view {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    animation: fadeIn 0.3s ease-out;
-}
-
-.settings-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.settings-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.setting-item {
-    background: #f8fafc;
-    padding: 16px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.setting-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.setting-desc {
-    padding: 0 16px;
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-/* Small Switch Reuse */
-.small-switch {
-    width: 44px;
-    height: 24px;
-    position: relative;
-    display: inline-block;
-}
-
-.small-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
-    z-index: -1;
-}
-
-.small-switch .slider {
-    background-color: var(--danger);
-    /* Red by default */
-}
-
-.small-switch .slider:before {
-    width: 16px;
-    height: 16px;
-    left: 4px;
-    bottom: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.small-switch input:checked+.slider {
-    background-color: var(--primary);
-    /* Green when checked */
-    box-shadow: none;
-    /* Optional: simpler look for small switch */
-}
-
-.small-switch input:checked+.slider:before {
-    transform: translateX(20px);
+    font-weight: 700;
 }
